@@ -11,7 +11,11 @@ import {
   FaBars,
   FaTimes,
   FaStar,
-  FaStarHalfAlt
+  FaStarHalfAlt,
+  FaMousePointer,
+  FaShoppingBag,
+  FaStore,
+  FaSmile
 } from 'react-icons/fa';
 
 import dumTeaImg from './assets/picks/dum_tea.png';
@@ -58,7 +62,6 @@ import gallery4Img from './assets/picks/gallery_4.png';
 // Data Arrays
 const teaItems = [
   { id: 't2', name: 'Dum Tea', description: 'Traditional slow-brewed tea', price: '₹15/-', img: dumTeaImg },
-  { id: 't3', name: 'Allam Tea', description: 'Ginger-infused fresh tea', price: '₹20/-', img: allamTeaImg },
   { id: 't4', name: 'Lemon Tea', description: 'Zesty lemon tea', price: '₹15/-', img: lemonTeaImg2 },
   { id: 't5', name: 'Black Tea', description: 'Strong and aromatic black tea', price: '₹15/-', img: blackTeaImg },
   { id: 't6', name: 'Green Tea', description: 'Healthy and light green tea', price: '₹15/-', img: greenTeaImg2 },
@@ -79,7 +82,6 @@ const milkItems = [
   { id: 'm4', name: 'Boost', description: 'Energy drink with milk', price: '₹20/-', img: boostDrinkImg },
   { id: 'm5', name: 'Horlicks', description: 'Classic malted milk drink', price: '₹20/-', img: horlicksImg },
   { id: 'm6', name: 'Bournvita', description: 'Chocolatey malt drink', price: '₹20/-', img: bournvitaImg },
-  { id: 'm7', name: 'Hot Choclate', description: 'Rich and creamy hot chocolate', price: '₹20/-', img: hotMilkImg },
 ];
 
 const shakeItems = [
@@ -96,7 +98,6 @@ const lassiItems = [
   { id: 'l1', name: 'Lassi', description: 'Traditional sweet lassi', price: '₹40/-', img: sweetLassiImg },
   { id: 'l2', name: 'Mango Lassi', description: 'Refreshing mango lassi', price: '₹50/-', img: mangoLassiImg },
   { id: 'l3', name: 'Strawberry Lassi', description: 'Strawberry flavored lassi', price: '₹50/-', img: strawberryLassiImg },
-  { id: 'l4', name: 'Rooh Afza Lassi', description: 'Rose syrup flavored lassi', price: '₹50/-', img: roohAfzaLassiImg },
   { id: 'l5', name: 'Badam Lassi', description: 'Almond enriched lassi', price: '₹50/-', img: badamLassiImg },
   { id: 'l7', name: 'Dry Fruit Lassi', description: 'Lassi loaded with dry fruits', price: '₹70/-', img: dryFruitLassiImg },
 ];
@@ -251,17 +252,31 @@ function App() {
               <div className="about-img">
                 <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80" alt="Cafe Interior" />
               </div>
-              <div className="about-text">
+              <div className="about-text" style={{ display: 'flex', flexDirection: 'column' }}>
                 <h2>About Us</h2>
-                <p>
-                  Magic Cup is a cozy place where people enjoy freshly brewed coffee, tasty desserts, and a relaxing atmosphere.
-                  We believe that every cup of coffee tells a story and every visit should be an experience to remember.
-                </p>
-                <p>
-                  Sourced from the finest coffee beans globally, our skilled baristas craft beverages that cater to the most discerning of palates.
-                  Whether you are meeting friends, working remotely, or just taking a moment for yourself, our warm ambience welcomes you.
-                </p>
-                <a href="#contact" className="btn-primary" style={{ marginTop: '1rem' }}>Visit Us</a>
+                <div className="about-process-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1.5rem', marginTop: '1.5rem', marginBottom: '1.5rem' }}>
+                  <div className="process-card reveal" style={{ transitionDelay: '0.1s', background: '#fff', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid #f0f0f0', textAlign: 'center', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}>
+                    <div style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '1rem' }}><FaMousePointer /></div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: '#333' }}>Step 1</h3>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#666', lineHeight: '1.5' }}>Visiting our website</p>
+                  </div>
+                  <div className="process-card reveal" style={{ transitionDelay: '0.2s', background: '#fff', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid #f0f0f0', textAlign: 'center', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}>
+                    <div style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '1rem' }}><FaShoppingBag /></div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: '#333' }}>Step 2</h3>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#666', lineHeight: '1.5' }}>Pick your favorite one and pre-book your order</p>
+                  </div>
+                  <div className="process-card reveal" style={{ transitionDelay: '0.3s', background: '#fff', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid #f0f0f0', textAlign: 'center', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}>
+                    <div style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '1rem' }}><FaStore /></div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: '#333' }}>Step 3</h3>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#666', lineHeight: '1.5' }}>Later take your order from the cafe directly</p>
+                  </div>
+                  <div className="process-card reveal" style={{ transitionDelay: '0.4s', background: '#fff', padding: '1.5rem', borderRadius: '16px', boxShadow: '0 4px 20px rgba(0,0,0,0.06)', border: '1px solid #f0f0f0', textAlign: 'center', transition: 'transform 0.3s ease, box-shadow 0.3s ease' }} onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-5px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)'; }} onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = '0 4px 20px rgba(0,0,0,0.06)'; }}>
+                    <div style={{ fontSize: '2rem', color: 'var(--primary-color)', marginBottom: '1rem' }}><FaSmile /></div>
+                    <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem', color: '#333' }}>Enjoy</h3>
+                    <p style={{ margin: 0, fontSize: '0.95rem', color: '#666', lineHeight: '1.5' }}>This is the whole process of enjoying your time with us!</p>
+                  </div>
+                </div>
+                <a href="#contact" className="btn-primary" style={{ marginTop: '0.5rem', alignSelf: 'flex-start' }}>Visit Us</a>
               </div>
             </div>
           </section>
