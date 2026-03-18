@@ -29,7 +29,6 @@ import allamTeaImg from './assets/picks/allam_tea.png';
 import lemonTeaImg2 from './assets/picks/lemon_tea.png';
 import blackTeaImg from './assets/picks/black_tea.png';
 import greenTeaImg2 from './assets/picks/green_tea.png';
-import elachiTeaImg from './assets/picks/elachi_tea.png';
 import normalCoffeeImg from './assets/picks/normal_coffee.png';
 import blackCoffeeImg from './assets/picks/black_coffee.png';
 import coldCoffeeImg from './assets/picks/cold_coffee.png';
@@ -43,12 +42,10 @@ import vanillaShakeImg from './assets/picks/vanilla_shake.png';
 import strawberryShakeImg from './assets/picks/strawberry_shake.png';
 import oreoShakeImg from './assets/picks/oreo_shake.png';
 import kitkatShakeImg from './assets/picks/kitkat_shake.png';
-import munchShakeImg from './assets/picks/munch_shake.png';
 import mangoLassiImg from './assets/picks/mango_lassi.png';
 import strawberryLassiImg from './assets/picks/strawberry_lassi.png';
 import roohAfzaLassiImg from './assets/picks/rooh_afza_lassi.png';
 import badamLassiImg from './assets/picks/badam_lassi.png';
-import butterscotchLassiImg from './assets/picks/butterscotch_lassi.png';
 import masalaSodaImg from './assets/picks/masala_soda.png';
 import blackCurrantMocktailImg from './assets/picks/black_currant_mocktail.png';
 import magicLimeMintImg from './assets/picks/magic_lime_mint.png';
@@ -75,7 +72,6 @@ const teaItems = [
   { id: 't5', name: 'Black Tea', description: 'Strong and aromatic black tea', price: '₹15/-', img: blackTeaImg },
   { id: 't6', name: 'Green Tea', description: 'Healthy and light green tea', price: '₹15/-', img: greenTeaImg2 },
   { id: 't7', name: 'Masala Tea', description: 'Spiced aromatic milk tea', price: '₹15/-', img: masalaTeaImg },
-  { id: 't8', name: 'Elachi Tea', description: 'Flavored with cardamom', price: '₹20/-', img: elachiTeaImg },
   { id: 't9', name: 'Ginger + Elaichi', description: 'Perfect blend of ginger and cardamom', price: '₹20/-', img: masalaTeaImg },
 ];
 
@@ -105,7 +101,6 @@ const shakeItems = [
   { id: 'ms5', name: 'Strawberry', description: 'Fresh strawberry milkshake', price: '₹59/-', img: strawberryShakeImg },
   { id: 'ms6', name: 'Oreo', description: 'Crunchy oreo blend', price: '₹69/-', img: oreoShakeImg },
   { id: 'ms7', name: 'Kitkat', description: 'Kitkat chocolate milkshake', price: '₹69/-', img: kitkatShakeImg },
-  { id: 'ms8', name: 'Munch', description: 'Munch chocolate milkshake', price: '₹69/-', img: munchShakeImg },
 ];
 
 const lassiItems = [
@@ -114,7 +109,6 @@ const lassiItems = [
   { id: 'l3', name: 'Strawberry Lassi', description: 'Strawberry flavored lassi', price: '₹50/-', img: strawberryLassiImg },
   { id: 'l4', name: 'Rooh Afza Lassi', description: 'Rose syrup flavored lassi', price: '₹50/-', img: roohAfzaLassiImg },
   { id: 'l5', name: 'Badam Lassi', description: 'Almond enriched lassi', price: '₹50/-', img: badamLassiImg },
-  { id: 'l6', name: 'Butterscotch Lassi', description: 'Butterscotch flavored lassi', price: '₹60/-', img: butterscotchLassiImg },
   { id: 'l7', name: 'Dry Fruit Lassi', description: 'Lassi loaded with dry fruits', price: '₹70/-', img: dryFruitLassiImg },
 ];
 
