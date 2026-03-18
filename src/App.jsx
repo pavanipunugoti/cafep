@@ -155,9 +155,25 @@ const reviews = [
   }
 ];
 
+const categories = [
+  { id: 'topPicks', title: 'Our Top Picks', items: topPicksItems, img: dumTeaImg, description: 'Chef\'s special & customer favorites' },
+  { id: 'tea', title: 'Tea', items: teaItems, img: regularTeaImg, description: 'Classic and flavored tea' },
+  { id: 'coffee', title: 'Coffee', items: coffeeItems, img: normalCoffeeImg, description: 'Hot and cold coffee blends' },
+  { id: 'milk', title: 'Milk', items: milkItems, img: hotMilkImg, description: 'Healthy and flavored milk' },
+  { id: 'shake', title: 'Milk Shake', items: shakeItems, img: mangoMilkshakeImg, description: 'Thick and creamy milkshakes' },
+  { id: 'lassi', title: 'Lassi', items: lassiItems, img: sweetLassiImg, description: 'Traditional sweet and flavored lassi' },
+  { id: 'mocktail', title: 'Mocktails & Juices', items: mocktailItems, img: lemonSodaImg, description: 'Refreshing mocktails and juices' },
+];
+
 function App() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [user, setUser] = useState(null);
+  const [bookedItems, setBookedItems] = useState([]);
+  const [showProfilePage, setShowProfilePage] = useState(false);
 
   // Handle Scroll to add active class and sticky navbar
   useEffect(() => {
@@ -218,250 +234,234 @@ function App() {
         </div>
 
         <ul className={`nav-links ${isMenuOpen ? 'open' : ''}`}>
-          <li><a href="#home" onClick={closeMenu}>Home</a></li>
-          <li><a href="#about" onClick={closeMenu}>About</a></li>
-          <li><a href="#menu" onClick={closeMenu}>Menu</a></li>
-          <li><a href="#gallery" onClick={closeMenu}>Gallery</a></li>
-          <li><a href="#reviews" onClick={closeMenu}>Reviews</a></li>
-          <li><a href="#contact" onClick={closeMenu}>Contact</a></li>
+          <li><a href="#home" onClick={() => { setActiveCategory(null); setShowProfilePage(false); closeMenu(); }}>Home</a></li>
+          <li><a href="#about" onClick={() => { setActiveCategory(null); setShowProfilePage(false); closeMenu(); }}>About</a></li>
+          <li><a href="#menu" onClick={() => { setActiveCategory(null); setShowProfilePage(false); closeMenu(); }}>Menu</a></li>
+          <li><a href="#reviews" onClick={() => { setActiveCategory(null); setShowProfilePage(false); closeMenu(); }}>Reviews</a></li>
+          <li><a href="#contact" onClick={() => { setActiveCategory(null); setShowProfilePage(false); closeMenu(); }}>Contact</a></li>
+          <li>
+            {!user ? (
+              <a href="#login" onClick={(e) => { e.preventDefault(); setIsLoginModalOpen(true); closeMenu(); }} className="btn-primary" style={{ padding: '8px 20px', color: '#fff' }}>Login</a>
+            ) : (
+              <a href="#profile" onClick={(e) => { e.preventDefault(); setShowProfilePage(true); setActiveCategory(null); closeMenu(); window.scrollTo({ top: 0, behavior: 'instant' }); }} className="btn-primary" style={{ padding: '8px', color: '#fff', borderRadius: '50%', width: '40px', height: '40px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ fontSize: '1.2rem' }}>👤</span>
+              </a>
+            )}
+          </li>
         </ul>
       </nav>
 
-      {/* ---------------- Hero Section ---------------- */}
-      <section id="home" className="hero">
-        <div className="hero-content fade-in">
-          <h1>Magic Cup</h1>
-          <p>Fresh Coffee, Fresh Moments</p>
-          <a href="#menu" className="btn-primary">Explore Menu</a>
-        </div>
-      </section>
+      {/* ---------------- Conditional View Wrapper ---------------- */}
+      {!activeCategory && !showProfilePage && (
+        <>
+          {/* ---------------- Hero Section ---------------- */}
+          <section id="home" className="hero">
+            <div className="hero-content fade-in">
+              <h1>Magic Cup</h1>
+              <p>Fresh Coffee, Fresh Moments</p>
+              <a href="#menu" className="btn-primary">Explore Menu</a>
+            </div>
+          </section>
 
-      {/* ---------------- About Section ---------------- */}
-      <section id="about" className="about section-padding">
-        <div className="about-container reveal">
-          <div className="about-img">
-            <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80" alt="Cafe Interior" />
-          </div>
-          <div className="about-text">
-            <h2>About Us</h2>
-            <p>
-              Magic Cup is a cozy place where people enjoy freshly brewed coffee, tasty desserts, and a relaxing atmosphere.
-              We believe that every cup of coffee tells a story and every visit should be an experience to remember.
-            </p>
-            <p>
-              Sourced from the finest coffee beans globally, our skilled baristas craft beverages that cater to the most discerning of palates.
-              Whether you are meeting friends, working remotely, or just taking a moment for yourself, our warm ambience welcomes you.
-            </p>
-            <a href="#contact" className="btn-primary" style={{ marginTop: '1rem' }}>Visit Us</a>
-          </div>
-        </div>
-      </section>
+          {/* ---------------- About Section ---------------- */}
+          <section id="about" className="about section-padding">
+            <div className="about-container reveal">
+              <div className="about-img">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&auto=format&fit=crop&q=80" alt="Cafe Interior" />
+              </div>
+              <div className="about-text">
+                <h2>About Us</h2>
+                <p>
+                  Magic Cup is a cozy place where people enjoy freshly brewed coffee, tasty desserts, and a relaxing atmosphere.
+                  We believe that every cup of coffee tells a story and every visit should be an experience to remember.
+                </p>
+                <p>
+                  Sourced from the finest coffee beans globally, our skilled baristas craft beverages that cater to the most discerning of palates.
+                  Whether you are meeting friends, working remotely, or just taking a moment for yourself, our warm ambience welcomes you.
+                </p>
+                <a href="#contact" className="btn-primary" style={{ marginTop: '1rem' }}>Visit Us</a>
+              </div>
+            </div>
+          </section>
+        </>
+      )}
 
       {/* ---------------- Menu Section ---------------- */}
-      <section id="menu" className="menu section-padding">
-        <h2 className="section-title reveal">Our Menu</h2>
+      {!showProfilePage && (
+        <section id="menu" className="menu section-padding" style={{ paddingTop: '20px', paddingBottom: '40px' }}>
+          <h2 className="section-title reveal" style={{ marginBottom: '2rem' }}>Our Menu</h2>
 
-        {/* Top Picks Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Our Top Picks</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {topPicksItems.map((item, index) => (
-            <div className="menu-card top-pick-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
+          {!activeCategory ? (
+            <div className="menu-grid">
+              {categories.map((cat, index) => (
+                <div 
+                  className="menu-card category-card reveal active" 
+                  key={cat.id} 
+                  style={{ transitionDelay: `${(index % 4) * 0.1}s`, cursor: 'pointer' }}
+                  onClick={() => {
+                    setActiveCategory(cat);
+                    window.scrollTo({ top: 0, behavior: 'instant' });
+                  }}
+                >
+                  <div className="menu-img">
+                    <img src={cat.img} alt={cat.title} />
+                  </div>
+                  <div className="menu-info">
+                    <h3 style={{ fontSize: '1.8rem', color: 'var(--primary-color)' }}>{cat.title}</h3>
+                    <p>{cat.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="active-category-section reveal active">
+              <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+                <button 
+                  className="btn-order" 
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '10px 20px', fontSize: '1.1rem' }}
+                  onClick={() => {
+                    setActiveCategory(null);
+                    setTimeout(() => {
+                      document.getElementById('menu')?.scrollIntoView({ behavior: 'smooth' });
+                    }, 50);
+                  }}
+                >
+                  &larr; Back to Categories
+                </button>
               </div>
-              <div className="menu-info">
-                <h3>{item.name} <FaStar style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginLeft: '5px' }} /></h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
+              
+              <h3 style={{ textAlign: 'center', marginBottom: '3rem', fontSize: '2.5rem', color: 'var(--primary-color)' }}>
+                {activeCategory.title}
+              </h3>
+              <div className="menu-grid" style={{ marginBottom: '4rem' }}>
+                {activeCategory.items.map((item, index) => (
+                  <div className="menu-card reveal active" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
+                    <div className="menu-img">
+                      <img src={item.img} alt={item.name} />
+                    </div>
+                    <div className="menu-info">
+                      <h3>{item.name} {activeCategory.id === 'topPicks' && <FaStar style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginLeft: '5px' }} />}</h3>
+                      <p>{item.description}</p>
+                      <div className="menu-price">{item.price}</div>
+                      <button className="btn-order" onClick={() => setSelectedItem(item)}>Order Now</button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
-        </div>
+          )}
+        </section>
+      )}
 
-        {/* Tea Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Tea</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {teaItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
+      {/* ---------------- Profile Page Section ---------------- */}
+      {showProfilePage && (
+        <section id="profile" className="section-padding" style={{ paddingTop: '120px', minHeight: '80vh' }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', background: 'var(--card-bg)', padding: '3rem', borderRadius: '20px', boxShadow: 'var(--shadow-lg)' }}>
+            <div style={{ textAlign: 'center' }}>
+              <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--secondary-color)' }}>My Profile</h2>
+              <h3 style={{ marginBottom: '2rem' }}>Booked Items</h3>
             </div>
-          ))}
-        </div>
-
-        {/* Coffee Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Coffee</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {coffeeItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
+            {bookedItems.length === 0 ? (
+              <p style={{ color: '#666', fontSize: '1.1rem', marginBottom: '2rem', textAlign: 'center' }}>No items booked yet. Head to the menu to order some delicious treats!</p>
+            ) : (
+              <ul style={{ listStyle: 'none', padding: 0, textAlign: 'left', marginBottom: '2rem' }}>
+                {bookedItems.map((item, idx) => (
+                  <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '15px', borderBottom: '1px solid #eee', paddingBottom: '15px' }}>
+                    <img src={item.img} alt={item.name} style={{ width: '80px', height: '80px', borderRadius: '10px', objectFit: 'cover' }} />
+                    <div style={{ flex: 1 }}>
+                      <strong style={{ fontSize: '1.3rem' }}>{item.name}</strong>
+                      <div style={{ color: '#666' }}>{item.description}</div>
+                    </div>
+                    <div style={{ color: 'var(--primary-color)', fontSize: '1.4rem', fontWeight: 'bold' }}>{item.price}</div>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <div style={{ textAlign: 'center' }}>
+              <button className="btn-primary" style={{ marginRight: '1rem' }} onClick={() => setShowProfilePage(false)}>Back to Home</button>
+              <button className="btn-primary" style={{ backgroundColor: '#cc0000', border: 'none' }} onClick={() => {
+                setUser(null);
+                setBookedItems([]);
+                setShowProfilePage(false);
+                alert("Logged out successfully");
+              }}>Logout</button>
             </div>
-          ))}
-        </div>
-
-        {/* Milk Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Milk</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {milkItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Milk Shake Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Milk Shake</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {shakeItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Lassi Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Lassi</h3>
-        <div className="menu-grid" style={{ marginBottom: '4rem' }}>
-          {lassiItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Mocktails Section */}
-        <h3 className="reveal" style={{ textAlign: 'center', marginBottom: '2rem', fontSize: '2rem', color: 'var(--primary-color)' }}>Mocktails</h3>
-        <div className="menu-grid">
-          {mocktailItems.map((item, index) => (
-            <div className="menu-card reveal" key={item.id} style={{ transitionDelay: `${(index % 4) * 0.1}s` }}>
-              <div className="menu-img">
-                <img src={item.img} alt={item.name} />
-              </div>
-              <div className="menu-info">
-                <h3>{item.name}</h3>
-                <p>{item.description}</p>
-                <div className="menu-price">{item.price}</div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ---------------- Gallery Section ---------------- */}
-      <section id="gallery" className="gallery section-padding">
-        <h2 className="section-title reveal">Our Gallery</h2>
-        <div className="gallery-grid">
-          {galleryImages.map((src, index) => (
-            <div className="gallery-item reveal" key={index} style={{ transitionDelay: `${index * 0.1}s` }}>
-              <img src={src} alt={`Gallery ${index + 1}`} />
-              <div className="gallery-overlay">
-                <FaCoffee />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
+      )}
 
       {/* ---------------- Customer Reviews Section ---------------- */}
-      <section id="reviews" className="reviews section-padding">
-        <h2 className="section-title reveal">Customer Reviews</h2>
-        <div className="reviews-container">
-          {reviews.map((review, index) => (
-            <div className="review-card reveal" key={review.id} style={{ transitionDelay: `${index * 0.15}s` }}>
-              <div className="stars">
-                {renderStars(review.rating)}
-              </div>
-              <p className="review-text">{review.text}</p>
-              <h4 className="review-author">- {review.name}</h4>
+      {!activeCategory && !showProfilePage && (
+        <>
+          <section id="reviews" className="reviews section-padding" style={{ paddingTop: '40px', paddingBottom: '40px' }}>
+            <h2 className="section-title reveal" style={{ marginBottom: '2rem' }}>Customer Reviews</h2>
+            <div className="reviews-container">
+              {reviews.map((review, index) => (
+                <div className="review-card reveal" key={review.id} style={{ transitionDelay: `${index * 0.15}s` }}>
+                  <div className="stars">
+                    {renderStars(review.rating)}
+                  </div>
+                  <p className="review-text">{review.text}</p>
+                  <h4 className="review-author">- {review.name}</h4>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
+          </section>
 
-      {/* ---------------- Contact Section ---------------- */}
-      <section id="contact" className="contact section-padding">
-        <h2 className="section-title reveal">Contact Us</h2>
-        <div className="contact-container reveal">
-          <div className="contact-info">
-            <h3>Get in Touch</h3>
-            <div className="info-item">
-              <div className="info-icon"><FaMapMarkerAlt /></div>
-              <div className="info-text">
-                <h4>Address</h4>
-                <p>123 Coffee Avenue, New York, NY 10012</p>
-              </div>
-            </div>
-            <div className="info-item">
-              <div className="info-icon"><FaPhoneAlt /></div>
-              <div className="info-text">
-                <h4>Phone</h4>
-                <p>+1 (555) 123-4567</p>
-              </div>
-            </div>
-            <div className="info-item">
-              <div className="info-icon"><FaEnvelope /></div>
-              <div className="info-text">
-                <h4>Email</h4>
-                <p>hello@magiccup.com</p>
-              </div>
-            </div>
+          {/* ---------------- Contact Section ---------------- */}
+          <section id="contact" className="contact section-padding">
+            <h2 className="section-title reveal">Contact Us</h2>
+            <div className="contact-container reveal">
+              <div className="contact-info">
+                <h3>Get in Touch</h3>
+                <div className="info-item">
+                  <div className="info-icon"><FaMapMarkerAlt /></div>
+                  <div className="info-text">
+                    <h4>Address</h4>
+                    <p>123 Coffee Avenue, New York, NY 10012</p>
+                  </div>
+                </div>
+                <div className="info-item">
+                  <div className="info-icon"><FaPhoneAlt /></div>
+                  <div className="info-text">
+                    <h4>Phone</h4>
+                    <p>+1 (555) 123-4567</p>
+                  </div>
+                </div>
+                <div className="info-item">
+                  <div className="info-icon"><FaEnvelope /></div>
+                  <div className="info-text">
+                    <h4>Email</h4>
+                    <p>hello@magiccup.com</p>
+                  </div>
+                </div>
 
-            <h4 style={{ marginTop: '2rem', marginBottom: '1rem', color: '#fff' }}>Opening Hours</h4>
-            <p style={{ color: '#ddd' }}>Mon - Fri: 7:00 AM - 8:00 PM</p>
-            <p style={{ color: '#ddd' }}>Sat - Sun: 8:00 AM - 9:00 PM</p>
-          </div>
+                <h4 style={{ marginTop: '2rem', marginBottom: '1rem', color: '#fff' }}>Opening Hours</h4>
+                <p style={{ color: '#ddd' }}>Mon - Fri: 7:00 AM - 8:00 PM</p>
+                <p style={{ color: '#ddd' }}>Sat - Sun: 8:00 AM - 9:00 PM</p>
+              </div>
 
-          <div className="contact-form">
-            <h3>Send a Message</h3>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div className="form-group">
-                <input type="text" className="form-control" placeholder="Your Name" required />
+              <div className="contact-form">
+                <h3>Send a Message</h3>
+                <form onSubmit={(e) => e.preventDefault()}>
+                  <div className="form-group">
+                    <input type="text" className="form-control" placeholder="Your Name" required />
+                  </div>
+                  <div className="form-group">
+                    <input type="email" className="form-control" placeholder="Your Email" required />
+                  </div>
+                  <div className="form-group">
+                    <textarea className="form-control" placeholder="Your Message" required></textarea>
+                  </div>
+                  <button type="submit" className="btn-primary">Send Message</button>
+                </form>
               </div>
-              <div className="form-group">
-                <input type="email" className="form-control" placeholder="Your Email" required />
-              </div>
-              <div className="form-group">
-                <textarea className="form-control" placeholder="Your Message" required></textarea>
-              </div>
-              <button type="submit" className="btn-primary">Send Message</button>
-            </form>
-          </div>
-        </div>
-      </section>
+            </div>
+          </section>
+        </>
+      )}
+
+
 
       {/* ---------------- Footer ---------------- */}
       <footer className="footer">
@@ -473,6 +473,51 @@ function App() {
         </div>
         <p>&copy; {new Date().getFullYear()} Magic Cup. All rights reserved.</p>
       </footer>
+
+      {/* ---------------- Booking Modal ---------------- */}
+      {selectedItem && (
+        <div className="modal-overlay" onClick={() => setSelectedItem(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-close" onClick={() => setSelectedItem(null)}><FaTimes /></div>
+            <div className="modal-body">
+              <img src={selectedItem.img} alt={selectedItem.name} className="modal-img" />
+              <h3>{selectedItem.name}</h3>
+              <p className="modal-price">{selectedItem.price}</p>
+              <p className="modal-desc">
+                If you want to book your item, simply confirm below. Just like booking a room, you can pre-order what you want, head over to the cafe, and our chefs will freshly prepare your order!
+              </p>
+              <button className="btn-primary" onClick={() => {
+                setBookedItems([...bookedItems, selectedItem]);
+                alert(`Successfully booked ${selectedItem.name}! See you at the cafe.`);
+                setSelectedItem(null);
+              }}>Confirm Booking</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ---------------- Login Modal ---------------- */}
+      {isLoginModalOpen && (
+        <div className="modal-overlay" onClick={() => setIsLoginModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()} style={{ padding: '2rem' }}>
+            <div className="modal-close" onClick={() => setIsLoginModalOpen(false)}><FaTimes /></div>
+            <div className="modal-body" style={{ padding: '0' }}>
+              <h3 style={{ fontSize: '2rem', marginBottom: '1.5rem', color: 'var(--secondary-color)' }}>Login</h3>
+              <form onSubmit={(e) => { e.preventDefault(); setUser({ name: 'User' }); alert("Logged in successfully!"); setIsLoginModalOpen(false); }}>
+                <div className="form-group" style={{ marginBottom: '1rem' }}>
+                  <input type="email" className="form-control" placeholder="Email Address" required />
+                </div>
+                <div className="form-group" style={{ marginBottom: '1.5rem' }}>
+                  <input type="password" className="form-control" placeholder="Password" required />
+                </div>
+                <button type="submit" className="btn-primary" style={{ width: '100%' }}>Login</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
+
+
     </>
   );
 }
