@@ -56,22 +56,12 @@ import gallery3Img from './assets/picks/gallery_3.png';
 import gallery4Img from './assets/picks/gallery_4.png';
 
 // Data Arrays
-const topPicksItems = [
-  { id: 'tp1', name: 'Special Dum Tea', description: 'Traditional slow-brewed tea (Chef\'s Special)', price: '₹15/-', img: dumTeaImg },
-  { id: 'tp2', name: 'Authentic Filter Coffee', description: 'Authentic South Indian filter coffee', price: '₹25/-', img: filterCoffeeImg },
-  { id: 'tp3', name: 'Mango Milkshake', description: 'Thick, creamy mango delight', price: '₹59/-', img: mangoMilkshakeImg },
-  { id: 'tp4', name: 'Dry Fruit Lassi', description: 'Rich lassi loaded with dry fruits', price: '₹70/-', img: dryFruitLassiImg },
-  { id: 'tp5', name: 'Green Apple Mocktail', description: 'Refreshing crisp green apple mocktail', price: '₹40/-', img: greenAppleMocktailImg },
-];
-
 const teaItems = [
-  { id: 't1', name: 'Single Tea', description: 'Classic refreshing tea', price: '₹12/-', img: regularTeaImg },
   { id: 't2', name: 'Dum Tea', description: 'Traditional slow-brewed tea', price: '₹15/-', img: dumTeaImg },
   { id: 't3', name: 'Allam Tea', description: 'Ginger-infused fresh tea', price: '₹20/-', img: allamTeaImg },
   { id: 't4', name: 'Lemon Tea', description: 'Zesty lemon tea', price: '₹15/-', img: lemonTeaImg2 },
   { id: 't5', name: 'Black Tea', description: 'Strong and aromatic black tea', price: '₹15/-', img: blackTeaImg },
   { id: 't6', name: 'Green Tea', description: 'Healthy and light green tea', price: '₹15/-', img: greenTeaImg2 },
-  { id: 't7', name: 'Masala Tea', description: 'Spiced aromatic milk tea', price: '₹15/-', img: masalaTeaImg },
   { id: 't9', name: 'Ginger + Elaichi', description: 'Perfect blend of ginger and cardamom', price: '₹20/-', img: masalaTeaImg },
 ];
 
@@ -84,7 +74,6 @@ const coffeeItems = [
 ];
 
 const milkItems = [
-  { id: 'm1', name: 'Milk', description: 'Warm and comforting plain milk', price: '₹15/-', img: hotMilkImg },
   { id: 'm2', name: 'Haldi Milk', description: 'Turmeric infused healthy milk', price: '₹20/-', img: haldiMilkImg },
   { id: 'm3', name: 'Hot Badam Milk', description: 'Almond enriched hot milk', price: '₹20/-', img: badamMilkImg },
   { id: 'm4', name: 'Boost', description: 'Energy drink with milk', price: '₹20/-', img: boostDrinkImg },
@@ -150,7 +139,6 @@ const reviews = [
 ];
 
 const categories = [
-  { id: 'topPicks', title: 'Our Top Picks', items: topPicksItems, img: dumTeaImg, description: 'Chef\'s special & customer favorites' },
   { id: 'tea', title: 'Tea', items: teaItems, img: regularTeaImg, description: 'Classic and flavored tea' },
   { id: 'coffee', title: 'Coffee', items: coffeeItems, img: normalCoffeeImg, description: 'Hot and cold coffee blends' },
   { id: 'milk', title: 'Milk', items: milkItems, img: hotMilkImg, description: 'Healthy and flavored milk' },
@@ -334,7 +322,7 @@ function App() {
                       <img src={item.img} alt={item.name} />
                     </div>
                     <div className="menu-info">
-                      <h3>{item.name} {activeCategory.id === 'topPicks' && <FaStar style={{ color: 'var(--primary-color)', fontSize: '1.2rem', marginLeft: '5px' }} />}</h3>
+                      <h3>{item.name}</h3>
                       <p>{item.description}</p>
                       <div className="menu-price">{item.price}</div>
                       <button className="btn-order" onClick={() => setSelectedItem(item)}>Order Now</button>
